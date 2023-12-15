@@ -1,32 +1,60 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import styles from "./select.module.css";
 
 //구현해야하는 기능
 // 1. 토글바 클릭시 나타나게 blur시 사라지게 (완료)
 // 2. li를 클릭하면 토글바에 나타나게 고정 , 스타일 변경 (완료)
-// 3. li위에 호버시 스타일 변경(.option.highlighted)
+// 3. li위에 호버시 스타일 변경 (완료)
 // 4. 멀티플 options 주기
 // 5. li에서 다시 클릭시 삭제 , 토글바에서도 클릭시 삭제 기능 구현
 
+//multipleSelectOption
+//singleSelectOption
 export type SelectOptions = {
   label: string;
   value: string | number;
 };
 
-type SelectProps = {
-  options: SelectOptions[];
-  value?: SelectOptions;
+type singleSelectOption = {
+  multiple?: false;
+  value: SelectOptions;
   onChange: (value: SelectOptions | undefined) => void;
 };
 
-const Select = ({ options, value, onChange }: SelectProps) => {
+type multipleSelectOption = {
+  multiple: true;
+  value: SelectOptions[];
+  onChange: (value: SelectOptions[] | undefined) => void;
+};
+
+//SelectProps를 두개로 나누기
+//single일때와 multiple일때
+type SelectProps = {
+  options: SelectOptions[];
+} & (multipleSelectOption | singleSelectOption);
+
+//주는 props의 형태가 달라짐
+//Multiple일때 value가 array, onChange의 value도 array
+const Select = ({ multiple, options, value, onChange }: SelectProps) => {
   const [isFocused, setIsFocused] = useState(false);
   const [highlightedIdx, setHighlightedIdx] = useState(0);
 
-  // div 클릭하면 .show추가
-  // blur가 되면 ul 태그의 .show클래스를 삭제
   const onClickLi = (opt: SelectOptions) => {
-    onChange(opt);
+    if (multiple) {
+      //value에 option이 있을 때 객체인데 includes가 가능???
+      if (value.includes(opt)) {
+        //있다면 삭제
+        onChange(value.filter((v) => v !== opt));
+      } else {
+        //없다면 추가!
+        onChange([...value, opt]);
+      }
+    } else {
+      if (opt !== value) {
+        //같은 값일땐 로직 수행 x
+        onChange(opt);
+      }
+    }
     setIsFocused(false);
   };
 
@@ -37,27 +65,32 @@ const Select = ({ options, value, onChange }: SelectProps) => {
     setIsFocused(false);
   };
 
-  //option이 selected된 것인지 확인하는 함수
   const isOptionSelected = (option: SelectOptions) => {
     return option === value;
   };
-
-  useEffect(() => {
-    console.log({ isFocused });
-  }, [isFocused]);
-
-  useEffect(() => {
-    console.log({ value });
-  }, [value]);
 
   return (
     <div
       tabIndex={0}
       className={styles.container}
       onBlur={() => setIsFocused(false)}
-      onClick={() => setIsFocused(true)}
+      onClick={() => setIsFocused((prev) => !prev)}
     >
-      <span className={styles.value}>{value?.label}</span>
+      <span className={styles.value}>
+        {multiple
+          ? value.map((val) => (
+              <button
+                key={`btn-${val.value}`}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onClickLi(val);
+                }}
+              >
+                {val.label}
+              </button>
+            ))
+          : value?.label}
+      </span>
       <button className={styles["close-btn"]} onClick={(e) => onClear(e)}>
         &times;
       </button>
