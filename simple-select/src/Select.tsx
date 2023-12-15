@@ -81,7 +81,7 @@ const Select = ({ multiple, options, value, onChange }: SelectProps) => {
                 }}
                 className={styles["option-badge"]}
               >
-                {v.label}
+                {v.label}&times;
               </button>
             ))
           : value?.label}
