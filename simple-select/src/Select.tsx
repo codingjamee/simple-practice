@@ -3,7 +3,7 @@ import styles from "./select.module.css";
 
 //구현해야하는 기능
 // 1. 토글바 클릭시 나타나게 blur시 사라지게 (완료)
-// 2. li를 클릭하면 토글바에 나타나게 고정 , 스타일 변경 (.option.selected)
+// 2. li를 클릭하면 토글바에 나타나게 고정 , 스타일 변경 (완료)
 // 3. li위에 호버시 스타일 변경(.option.highlighted)
 // 4. 멀티플 options 주기
 // 5. li에서 다시 클릭시 삭제 , 토글바에서도 클릭시 삭제 기능 구현
@@ -21,6 +21,7 @@ type SelectProps = {
 
 const Select = ({ options, value, onChange }: SelectProps) => {
   const [isFocused, setIsFocused] = useState(false);
+  const [highlightedIdx, setHighlightedIdx] = useState(0);
 
   // div 클릭하면 .show추가
   // blur가 되면 ul 태그의 .show클래스를 삭제
@@ -63,15 +64,19 @@ const Select = ({ options, value, onChange }: SelectProps) => {
       <div className={styles.divider}></div>
       <div className={styles.caret}></div>
       <ul className={`${styles.options} ${isFocused ? styles.show : ""}`}>
-        {options.map((option) => (
+        {options.map((option, idx) => (
           <li
             key={`option-${option.value}`}
             className={`${styles.option} ${
               isOptionSelected(option) ? styles.selected : ""
-            }`}
+            } ${highlightedIdx === idx ? styles.highlighted : ""}`}
             onClick={(e) => {
               e.stopPropagation();
               onClickLi(option);
+            }}
+            onMouseEnter={(e) => {
+              e.stopPropagation();
+              setHighlightedIdx(idx);
             }}
           >
             {option.label}
