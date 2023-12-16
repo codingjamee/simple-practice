@@ -61,12 +61,12 @@ const Select = ({ multiple, options, value, onChange }: SelectProps) => {
   //onClear의 Event타입???
   const onClear = (e) => {
     e.stopPropagation();
-    onChange(undefined);
+    multiple ? onChange([]) : onChange(undefined);
     setIsFocused(false);
   };
 
   const isOptionSelected = (option: SelectOptions) => {
-    return option === value;
+    return multiple ? value.includes(option) : option === value;
   };
 
   return (
@@ -87,6 +87,7 @@ const Select = ({ multiple, options, value, onChange }: SelectProps) => {
                 }}
               >
                 {val.label}
+                &times;
               </button>
             ))
           : value?.label}
@@ -129,3 +130,4 @@ export default Select;
 //3. li를 클릭시 e.stopPropagation을 하지 않으면 isFocused가 변경 되지 않음
 //부모로 이벤트가 전파가 되므로       onClick={() => setIsFocused(true)} 이 발동된것.. .
 //4. event발동 시 onClick={(e) => onClear(e)}의 event type은? 어떤걸 넣어도 에러,...
+//5. 처음 선택하지도 않았는데 First가 선택되어있는 현상

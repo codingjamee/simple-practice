@@ -11,7 +11,7 @@ const options = [
 ];
 
 const App = () => {
-  const [value1, setValue1] = useState<SelectOptions[] | []>([options[0]]);
+  const [value1, setValue1] = useState<SelectOptions[] | []>([]);
   const [value2, setValue2] = useState<SelectOptions | undefined>(options[0]);
   return (
     <>
