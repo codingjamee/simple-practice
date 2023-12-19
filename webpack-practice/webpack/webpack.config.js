@@ -30,8 +30,10 @@ module.exports = {
       {
         test: /\.(tsx|ts|jsx|js)$/,
         exclude: /node_modules/,
-        loader: "babel-loader",
-        options: { presets: ["@babel/preset-env", "@babel/preset-react"] },
+        use: {
+          loader: "babel-loader",
+          options: { presets: ["@babel/preset-env", "@babel/preset-react"] },
+        },
       },
     ],
   },
@@ -46,7 +48,7 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: path.resolve(__dirname, "..", "./src/index.html"),
+      template: path.resolve(__dirname, "..", "./index.html"),
     }),
   ], //index.html파일에 bundle.js파일을 inject하는 플러그인
   //이렇게하면 html파일에 script태그를 넣지 않아도 됨!
