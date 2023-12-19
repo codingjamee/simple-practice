@@ -10,6 +10,8 @@ import styles from "./select.module.css";
 
 //multipleSelectOption
 //singleSelectOption
+
+//onClickCapture 와 onClick 의 다른점
 export type SelectOptions = {
   label: string;
   value: string | number;
@@ -59,7 +61,7 @@ const Select = ({ multiple, options, value, onChange }: SelectProps) => {
   };
 
   //onClear의 Event타입???
-  const onClear = (e) => {
+  const onClear = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.stopPropagation();
     multiple ? onChange([]) : onChange(undefined);
     setIsFocused(false);
