@@ -37,8 +37,6 @@ export const Dropdown = ({ children }: DropdownProps) => {
     handleBtnText,
   };
 
-  //btnText는 맨 위에 놓고,
-  //나머지는 밑에 옵션즈로 보여줌!
   return (
     <DropdownContext.Provider value={value}>
       <D.Container>
@@ -71,8 +69,8 @@ export const Dropdown = ({ children }: DropdownProps) => {
             });
           }}
         />
-        {children}
       </D.Container>
+      {children}
     </DropdownContext.Provider>
   );
 };

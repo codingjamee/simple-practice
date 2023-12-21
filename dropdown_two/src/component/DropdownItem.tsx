@@ -4,16 +4,26 @@ import { useDropdownContext } from "./Dropdown";
 type DropdownItemProps = {
   children?: string;
   id: string;
-  value: string;
+  value?: string;
 };
 
-const DropdownItem = ({ children, id }: DropdownItemProps) => {
-  const { isOpen } = useDropdownContext();
+const DropdownItem = ({ children, id, value }: DropdownItemProps) => {
+  const { isOpen, handleIsOpen, handleBtnText } = useDropdownContext();
+  const setText = () => {
+    if (value) {
+      handleBtnText(value);
+      return handleIsOpen(false);
+    }
+    if (typeof children === "string") {
+      handleBtnText(children);
+      return handleIsOpen(false);
+    }
+  };
 
   return (
     <>
       {isOpen && (
-        <Options isOpen={isOpen} id={id}>
+        <Options isOpen={isOpen} id={id} onClick={setText}>
           {children}
         </Options>
       )}
@@ -22,7 +32,3 @@ const DropdownItem = ({ children, id }: DropdownItemProps) => {
 };
 
 export default DropdownItem;
-
-//문제점 height 값이 0임
-//다른 컴포넌트의 위치를 가져오지 못함(?)
-//서로 형제라는 것을 파악하지 못함 ???

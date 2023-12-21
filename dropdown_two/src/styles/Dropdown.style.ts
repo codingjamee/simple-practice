@@ -16,6 +16,11 @@ export const Container = styled.div`
   }
 `;
 
+export const FlexRow = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
 export const Value = styled.span`
   flex-grow: 1;
 `;
@@ -33,13 +38,13 @@ export const Options = styled.div<OptionsProps>`
   margin: 0;
   padding: 0;
   list-style: none;
-  position: absolute;
+  /* position: absolute; */
   /* 너무 스크롤이 높지 않게 */
   max-height: 15em;
   overflow-y: auto;
   border: 0.05em solid #777;
   border-radius: 0.25em;
-  width: 100%;
+  width: 20em;
   left: 0;
   top: calc(100% + 0.25em);
   background-color: white;
