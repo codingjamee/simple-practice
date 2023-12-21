@@ -1,8 +1,15 @@
-import { createContext, useState, ReactNode, useContext } from "react";
+import {
+  createContext,
+  useState,
+  ReactNode,
+  useContext,
+  useEffect,
+} from "react";
 import * as D from "../styles/Dropdown.style";
 
 type DropdownProps = {
   children: ReactNode | ReactNode[];
+  onChange?: (val: string) => void;
 };
 
 type DropdownContextType = {
@@ -21,7 +28,7 @@ export const useDropdownContext = () => {
   return context;
 };
 
-export const Dropdown = ({ children }: DropdownProps) => {
+export const Dropdown = ({ children, onChange }: DropdownProps) => {
   const [isOpen, setIsopen] = useState(false);
   const handleIsOpen = () => setIsopen((prev) => !prev);
   const [highlightedIndex, setHighlightedIndex] = useState(0);
@@ -36,6 +43,11 @@ export const Dropdown = ({ children }: DropdownProps) => {
     handleHighlightedIndex,
     handleBtnText,
   };
+
+  useEffect(() => {
+    console.log("btnText is Changed!");
+    onChange && onChange(btnText);
+  }, [btnText]);
 
   return (
     <DropdownContext.Provider value={value}>
