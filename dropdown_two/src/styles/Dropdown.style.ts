@@ -32,6 +32,7 @@ export const Value = styled.span`
 
 interface OptionsProps {
   isOpen: boolean;
+  highlightedindex: boolean;
 }
 
 export const Options = styled.div<OptionsProps>`
@@ -42,8 +43,9 @@ export const Options = styled.div<OptionsProps>`
   /* 너무 스크롤이 높지 않게 */
   max-height: 15em;
   overflow-y: auto;
-  border: 0.05em solid #777;
-  border-radius: 0.25em;
+  border-bottom: 0.05em solid #777;
+  border-right: 0.05em solid #777;
+  border-left: 0.05em solid #777;
   width: 20em;
   left: 0;
   top: calc(100% + 0.25em);
@@ -62,6 +64,13 @@ export const Options = styled.div<OptionsProps>`
       cursor: pointer;
       padding: 0;
       font-size: 1.25em;
+    `}
+
+  ${(props) =>
+    props.highlightedindex &&
+    css`
+      background-color: hsl(200, 100%, 50%);
+      color: white;
     `}
 `;
 export const Close = styled.button`

@@ -4,6 +4,8 @@ import {
   ReactNode,
   useContext,
   useEffect,
+  useMemo,
+  useCallback,
 } from "react";
 import * as D from "../styles/Dropdown.style";
 
@@ -12,11 +14,15 @@ type DropdownProps = {
   onChange?: (val: string) => void;
 };
 
+export type higlightedIndexType = number | string;
+
 type DropdownContextType = {
   isOpen: boolean;
   handleIsOpen: (val: React.SetStateAction<boolean>) => void;
-  highlightedIndex: number;
-  handleHighlightedIndex: (val: React.SetStateAction<number>) => void;
+  highlightedindex: higlightedIndexType;
+  handleHighlightedIndex: (
+    val: React.SetStateAction<higlightedIndexType>
+  ) => void;
   handleBtnText: (val: React.SetStateAction<string>) => void;
 };
 export const DropdownContext = createContext<DropdownContextType | null>(null);
@@ -30,19 +36,31 @@ export const useDropdownContext = () => {
 
 export const Dropdown = ({ children, onChange }: DropdownProps) => {
   const [isOpen, setIsopen] = useState(false);
-  const handleIsOpen = () => setIsopen((prev) => !prev);
-  const [highlightedIndex, setHighlightedIndex] = useState(0);
-  const handleHighlightedIndex = (val: any) => setHighlightedIndex(val);
+  const handleIsOpen = useCallback(() => setIsopen((prev) => !prev), []);
+  const [highlightedindex, setHighlightedIndex] = useState(0);
+  const handleHighlightedIndex = useCallback(
+    (val: any) => setHighlightedIndex(val),
+    []
+  );
   const [btnText, setBtnText] = useState("");
-  const handleBtnText = (val: any) => setBtnText(val);
+  const handleBtnText = useCallback((val: any) => setBtnText(val), []);
 
-  const value = {
-    isOpen,
-    handleIsOpen,
-    highlightedIndex,
-    handleHighlightedIndex,
-    handleBtnText,
-  };
+  const value = useMemo(
+    () => ({
+      isOpen,
+      handleIsOpen,
+      highlightedindex,
+      handleHighlightedIndex,
+      handleBtnText,
+    }),
+    [
+      isOpen,
+      handleIsOpen,
+      highlightedindex,
+      handleHighlightedIndex,
+      handleBtnText,
+    ]
+  );
 
   useEffect(() => {
     console.log("btnText is Changed!");
