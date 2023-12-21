@@ -23,9 +23,12 @@
     "noUnusedParameters": true, //쓰지않는 파라미터 있으면 에러내기
     "noImplicitReturns": true, //함수에서 return 빼먹으면 에러내기
     "noFallthroughCasesInSwitch": true, //switch문 이상하면 에러내기,
-    "types": ["react/next", "react-dom/next"]
+    "types": ["react/next", "react-dom/next"],
+    "paths": {
+      "*": ["node_modules/@types/*", "*"]
+    }
   },
-  "include": ["./src/", "craco.config.js", "./typings"],
+  "include": ["./src/", "./typings"],
   "extends": "./tsconfig.paths.json",
   "exclude": ["node_modules"]
 }

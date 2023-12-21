@@ -1,7 +1,5 @@
 import { createContext, useState, ReactNode, useContext } from "react";
 import * as D from "../styles/Dropdown.style";
-import DropdownButton from "./DropdownButton";
-import DropdownItem from "./DropdownItem";
 
 type DropdownProps = {
   children: ReactNode | ReactNode[];
@@ -9,9 +7,10 @@ type DropdownProps = {
 
 type DropdownContextType = {
   isOpen: boolean;
-  handleIsOpen: (value: React.SetStateAction<boolean>) => void;
+  handleIsOpen: (val: React.SetStateAction<boolean>) => void;
   highlightedIndex: number;
   handleHighlightedIndex: (val: React.SetStateAction<number>) => void;
+  handleBtnText: (val: React.SetStateAction<string>) => void;
 };
 export const DropdownContext = createContext<DropdownContextType | null>(null);
 export const useDropdownContext = () => {
@@ -27,17 +26,25 @@ export const Dropdown = ({ children }: DropdownProps) => {
   const handleIsOpen = () => setIsopen((prev) => !prev);
   const [highlightedIndex, setHighlightedIndex] = useState(0);
   const handleHighlightedIndex = (val: any) => setHighlightedIndex(val);
+  const [btnText, setBtnText] = useState("");
+  const handleBtnText = (val: any) => setBtnText(val);
 
   const value = {
     isOpen,
     handleIsOpen,
     highlightedIndex,
     handleHighlightedIndex,
+    handleBtnText,
   };
 
+  //btnText는 맨 위에 놓고,
+  //나머지는 밑에 옵션즈로 보여줌!
   return (
     <DropdownContext.Provider value={value}>
-      <D.Container>{children}</D.Container>
+      <D.Container>
+        <D.Value>{btnText}</D.Value>
+        <D.Options>{children}</D.Options>
+      </D.Container>
     </DropdownContext.Provider>
   );
 };
