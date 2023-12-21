@@ -42,8 +42,36 @@ export const Dropdown = ({ children }: DropdownProps) => {
   return (
     <DropdownContext.Provider value={value}>
       <D.Container>
-        <D.Value>{btnText}</D.Value>
-        <D.Options>{children}</D.Options>
+        <D.Value
+          onClick={() => {
+            setIsopen((prev) => {
+              console.log("handler clicked!");
+              return !prev;
+            });
+          }}
+        >
+          {btnText}
+        </D.Value>
+        <D.Close
+          onClick={() => {
+            setIsopen(() => {
+              console.log("handler clicked!");
+              return false;
+            });
+          }}
+        >
+          &times;
+        </D.Close>
+        <D.Divider />
+        <D.Caret
+          onClick={() => {
+            setIsopen((prev) => {
+              console.log("handler clicked!");
+              return !prev;
+            });
+          }}
+        />
+        {children}
       </D.Container>
     </DropdownContext.Provider>
   );
