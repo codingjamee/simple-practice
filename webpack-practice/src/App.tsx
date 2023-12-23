@@ -1,7 +1,7 @@
 import React from "react";
 
 const App = () => {
-  return <h1>Hello</h1>;
+  return <div style={{ margin: "400px" }}>Hello WEBPACK!!!!!</div>;
 };
 
 export default App;
