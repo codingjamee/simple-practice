@@ -39,8 +39,6 @@ module.exports = {
   },
   externals: {
     //번들링 결과에서 제외할 라이브러리들
-    react: "React",
-    "react-dom": "ReactDOM",
   },
   mode: "development",
   devServer: {
