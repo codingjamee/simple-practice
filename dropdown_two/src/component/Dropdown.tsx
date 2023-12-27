@@ -25,7 +25,7 @@ type DropdownContextType = {
   ) => void;
   handleBtnText: (val: React.SetStateAction<string>) => void;
 };
-export const DropdownContext = createContext<DropdownContextType | null>(null);
+const DropdownContext = createContext<DropdownContextType | null>(null);
 export const useDropdownContext = () => {
   const context = useContext(DropdownContext);
   if (!context) {
