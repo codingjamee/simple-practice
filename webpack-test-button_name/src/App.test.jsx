@@ -3,21 +3,25 @@
  */
 import { logRoles } from "@testing-library/dom";
 import "@testing-library/jest-dom";
-import { render, screen } from "@testing-library/react";
+import { render, screen, fireEvent } from "@testing-library/react";
 import App from "./App";
 
-test("button starts with correct color", () => {
-  const { container } = render(<App />);
-  logRoles(container);
+test("button click flow", () => {
+  // render App
+
+  render(<App />);
 
   const buttonElement = screen.getByRole("button", { name: /blue/i });
-  // getByRole이 요소를 찾지 못하면 에러! 테스트 실패
-  // name은 버튼에 표시되는 문자열
+  //check initial color
   expect(buttonElement).toHaveClass("red");
+
+  // click the button
+  fireEvent.click(buttonElement);
+  // check button text
+  expect(buttonElement).toHaveTextContent(/red/i);
+  // check the button color
+  // expect(buttonElement).toHaveClass("blue");
+  expect(buttonElement).toHaveStyle({ backgroundColor: "blue" });
 });
 
-test("button starts with correct text", () => {});
-
-test("button has correct color after click", () => {});
-
-test("button has correct text after click", () => {});
+test("button has correct label and color after click", () => {});
