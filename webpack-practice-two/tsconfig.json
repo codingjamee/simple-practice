@@ -22,6 +22,6 @@
     /* Completeness */
     "skipLibCheck": true /* Skip type checking all .d.ts files. */
   },
-  "include": ["./src/", "./typings"],
+  "include": ["./src/", "./src/typings"],
   "exclude": ["node_modules"]
 }
