@@ -12,6 +12,11 @@ module.exports = function (io) {
       //유저정보 저장
       try {
         const user = await userController.saveUser(userName, socket.id);
+        const welcomeMessage = {
+          chat: `${user.name}님이 들어왔습니다`,
+          user: { id: null, name: "system" },
+        };
+        io.of("/chat").emit("message", welcomeMessage);
         cb({ ok: true, data: user });
       } catch (err) {
         cb({ ok: false, error: err.message });

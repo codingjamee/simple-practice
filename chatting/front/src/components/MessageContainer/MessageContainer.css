@@ -1,3 +1,7 @@
+.message-container {
+  overflow-y: scroll;
+}
+
 .system-message-container {
   display: flex;
 
