@@ -22,8 +22,17 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        use: ["style-loader", "css-loader"],
+        use: [
+          "style-loader",
+          {
+            loader: "css-loader",
+            options: {
+              modules: true,
+            },
+          },
+        ],
       },
+
       //style-loader: style태그를 삽입해 dom에 css추가
       //css-loader: css 확장자의 css 파일을 읽기 위한 로더
       {
