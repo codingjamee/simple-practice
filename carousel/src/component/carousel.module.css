@@ -3,4 +3,6 @@
   transition: 0.3s;
   border-radius: 5px;
   display: flex;
+  width: 600px;
+  min-height: 600px;
 }
