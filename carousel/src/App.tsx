@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Carousel from "./component/Carousel";
 import CarouselItem from "./component/CarouselItem";
 import TemplateCard from "./component/TemplateCard";
@@ -7,9 +7,16 @@ import b from "./assets/b.png";
 import c from "./assets/c.png";
 
 const App = () => {
+  const [idx, setIdx] = useState(0);
+
+  const handleSelect = (selectedIndex: number) => {
+    setIdx(selectedIndex);
+  };
+
   return (
     <>
-      <Carousel>
+      {/* controlled component <Carousel activeIndex={idx} onSelect={handleSelect}> */}
+      <Carousel controls={true}>
         <CarouselItem>
           <TemplateCard>
             <img src={a} alt="a-img" />
