@@ -21,7 +21,7 @@ export const useControlled = <T=any>( // prettier-ignore
 
   const [state, setState] = useState<T>(defaultValue);
 
-  //isControlled면 controlledValue, 아니면 defaultValue를 (??????)
+  //isControlled면 controlledValue, 아니면 defaultValue를
   const value = isControlled ? controlledValue : state;
   const setValue: React.Dispatch<React.SetStateAction<T>> = useCallback(
     (newState) => {
