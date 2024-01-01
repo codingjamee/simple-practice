@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "jsx": "react-jsx",
+    "module": "es6",
+    "moduleResolution": "node10",
+    "allowJs": true,
+    "sourceMap": true,
+    "outDir": "./dist/",
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "strictNullChecks": true,
+    "skipLibCheck": true
+  },
+  "include": ["./src/", "./typings"],
+  "exclude": ["node_modules"]
+}
